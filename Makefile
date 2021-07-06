@@ -85,7 +85,7 @@ endif
 
 ifeq ($(OS),Windows_NT)
 CFLAGS += -DWINDOWS_BUILD
-LDFLAGS = $(CFLAGS) -lfreeglut_static -lopenal -lopengl32 -lglu32 -lgdi32 -lwinmm -lz -lole32 -loleaut32 -lminizip32
+LDFLAGS = $(CFLAGS) -lfreeglut_static -lopenal -lopengl32 -lglu32 -lgdi32 -lwinmm -lz -lole32 -loleaut32 -lminizip
 endif
 
 .PHONY: clean test
