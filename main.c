@@ -24,8 +24,13 @@
 #include "mem.h"
 #include "apu.h"
 #include "audio.h"
+#if FILESELECT
+#include "nfd.h"
+#define FILETYPE_FILTER "gb;gbc"
+#endif
 #if ZIPSUPPORT
 #include "unzip/unzip.h"
+#define FILETYPE_FILTER "gb;gbc;zip"
 #endif
 #define DEBUG_HZ 0
 #define DEBUG_MAIN_CALLS 0
@@ -151,6 +156,19 @@ int main(int argc, char** argv)
 	gbEmuResetRegs();
 	if(argc >= 2)
 		gbEmuFileOpen(argv[1]);
+#if FILESELECT
+	else
+	{
+		// use the nativefiledialog library to prompt for file selection
+		nfdchar_t *choicePath = NULL;
+		nfdresult_t nfdRes = NFD_OpenDialog(FILETYPE_FILTER, NULL, &choicePath);
+		if (nfdRes == NFD_OKAY)
+		{
+		    gbEmuFileOpen(choicePath);
+		    free(choicePath);
+		}
+	}
+#endif
 	if(emuFileType == FTYPE_GB || emuFileType == FTYPE_GBC)
 	{
 		if(!gbEmuFileRead())
