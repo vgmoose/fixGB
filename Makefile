@@ -43,6 +43,8 @@ NFD_PLATFORM :=
 
 ifeq ($(OS),Windows_NT)
 	NFD_PLATFORM = gmake_windows
+	LDFLAGS += -lfreeglut_static -lopenal32 -lopengl32 -lglu32 -lgdi32 -lwinmm -lz
+	CFLAGS += -DWINDOWS_BUILD
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
