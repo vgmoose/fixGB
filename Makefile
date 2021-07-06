@@ -42,19 +42,20 @@ FLAGS += -DFILESELECT=1
 NFD_PLATFORM :=
 
 ifeq ($(OS),Windows_NT)
-	NFD_PLATFORM += "gmake_windows"
+	NFD_PLATFORM = gmake_windows
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Linux)
-		NFD_PLATFORM += "gmake_linux"
+		LDFLAGS += $(shell pkg-config --cflags --libs gtk+-3.0)
+		NFD_PLATFORM = gmake_linux
 	endif
 	ifeq ($(UNAME_S),Darwin)
-		NFD_PLATFORM += "gmake_macosx"
+		NFD_PLATFORM = gmake_macosx
+		INCLUDES += -I/usr/local/Cellar/openal-soft/1.21.1/include
+		LDFLAGS +=  -framework OpenGL -framework GLUT -framework Cocoa -L/usr/local/Cellar/openal-soft/1.21.1/lib -L/opt/X11/lib/
 	endif
 endif
 
-LDFLAGS += $(shell pkg-config --cflags --libs gtk+-3.0)
-NFD_PLATFORM := gmake_linux
 OBJECTS += $(STATIC_NFD)
 endif
 

@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <malloc.h>
 #include <inttypes.h>
 #include <ctype.h>
 #include <string.h>
@@ -154,12 +153,14 @@ int main(int argc, char** argv)
 #endif
 	puts(VERSION_STRING);
 	gbEmuResetRegs();
+
 	if(argc >= 2)
 		gbEmuFileOpen(argv[1]);
 #if FILESELECT
 	else
 	{
 		// use the nativefiledialog library to prompt for file selection
+		glutInit(&argc, argv);
 		nfdchar_t *choicePath = NULL;
 		nfdresult_t nfdRes = NFD_OpenDialog(FILETYPE_FILTER, NULL, &choicePath);
 		if (nfdRes == NFD_OKAY)

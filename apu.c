@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <inttypes.h>
-#include <malloc.h>
 #include <string.h>
+#include <stdlib.h>
 #include "apu.h"
 #include "audio.h"
 #include "mem.h"
