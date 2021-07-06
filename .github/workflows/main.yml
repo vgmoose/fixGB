@@ -43,7 +43,8 @@ jobs:
       if: matrix.os == 'macos-latest'
 
     - uses: actions/checkout@v1
-      submodules: true
+      with:
+        submodules: true
 
     - run: make -j$(nproc)
       env:
