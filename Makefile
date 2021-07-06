@@ -45,10 +45,10 @@ ifeq ($(OS),Windows_NT)
 	NFD_PLATFORM = gmake_windows
 	LDFLAGS += -lfreeglut_static -lopenal32 -lopengl32 -lglu32 -lgdi32 -lwinmm -lz
 	CFLAGS += -DWINDOWS_BUILD
-	LIB_EXT = lib
+	LIB_EXT = nfd.lib
 else
 	UNAME_S := $(shell uname -s)
-	LIB_EXT = a
+	LIB_EXT = libnfd.a
 	ifeq ($(UNAME_S),Linux)
 		LDFLAGS += $(shell pkg-config --cflags --libs gtk+-3.0)
 		NFD_PLATFORM = gmake_linux
@@ -60,7 +60,7 @@ else
 	endif
 endif
 
-STATIC_NFD := ./fileselect/nativefiledialog/build/lib/Release/x64/libnfd.$(LIB_EXT)
+STATIC_NFD := ./fileselect/nativefiledialog/build/lib/Release/x64/$(LIB_EXT)
 OBJECTS += $(STATIC_NFD)
 endif
 
