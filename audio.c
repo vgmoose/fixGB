@@ -83,6 +83,9 @@ static int StartPlayer(StreamPlayer *player)
 {
     size_t i;
 
+    if (!player)
+        return 0;
+
     /* Rewind the source position and clear the buffer queue */
     alSourceRewind(player->source);
     alSourcei(player->source, AL_BUFFER, 0);
@@ -123,7 +126,10 @@ StreamPlayer *player = NULL;
 int audioInit()
 {
     if(InitAL() != 0)
+    {
+        fprintf(stderr, "Warning: could not initialize audio\n");
         goto error;
+    }
 
     if(alIsExtensionPresent("AL_SOFT_buffer_samples"))
     {
@@ -156,6 +162,8 @@ error:
 
 int audioUpdate()
 {
+    if (!player)
+        return 1;
     ALint processed = 0, state;
 
     /* Get relevant source info */
