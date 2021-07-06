@@ -29,6 +29,11 @@ FLAGS   += -O3
 LDFLAGS += -s
 endif
 
+ifeq ($(ZIPSUPPORT),1)
+FLAGS += -DZIPSUPPORT=1
+LDFLAGS += -lminizip
+endif
+
 ifeq ($(FILESELECT),1)
 STATIC_NFD := ./fileselect/nativefiledialog/build/lib/Release/x64/libnfd.a
 INCLUDES += -Ifileselect/nativefiledialog/src/include
